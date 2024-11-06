@@ -132,3 +132,4 @@ cookies.json
 data/*
 data/*
 screenshots/*.png
+!.vscode/launch.json
