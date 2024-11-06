@@ -7,7 +7,6 @@ from mailer import Mailer
 class Drawer:
 
     participants = []
-    bown = []
     game = []
 
     def __init__(self) -> None:
@@ -28,26 +27,19 @@ class Drawer:
         logging.info(f"Done reading [participants] input file, with total of [{len(self.participants)} participants]")
         return self
 
-    def random_participant(self) -> Participant|None:
-        random.shuffle(self.bown)
-        return self.bown.pop()
-
     def pairing(self) -> bool:
-        self.bown = self.participants.copy()
         self.game = []
-        i = 0
-        while len(self.bown) > 0:
-            secretFriend = self.random_participant()
-            if self.participants[i].key == secretFriend.key:
-                return False
-            self.game.append(Paired(self.participants[i], secretFriend))
-            i+=1
+        for i in range(0, len(self.participants)):
+            secretIdx = i+1
+            if secretIdx == len(self.participants):
+                secretIdx = 0
+            self.game.append(Paired(self.participants[i], self.participants[secretIdx]))
+            i = i+1
         return True
 
     def draw(self):
         logging.info("Start drawing game")
-        while not self.pairing():
-            pass
+        self.pairing()
         logging.info("Done drawing game")
         return self
 
