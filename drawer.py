@@ -40,6 +40,7 @@ class Drawer:
     def draw(self):
         logging.info("Start drawing game")
         self.pairing()
+        random.shuffle(self.game)
         logging.info("Done drawing game")
         return self
 
